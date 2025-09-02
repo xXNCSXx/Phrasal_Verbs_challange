@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrasal Verbs Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .char-input-container {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 0 0.5rem;
+        }
+        .char-input {
+            width: 2.75rem;
+            height: 3.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: 2px solid #d1d5db;
+            border-radius: 0.5rem;
+            background-color: #f9fafb;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            caret-color: #3b82f6;
+            text-transform: uppercase;
+        }
+        .char-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+        }
+        .dark .char-input {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
+        .dark .char-input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.4);
+        }
+        @media (max-width: 640px) {
+            .char-input {
+                width: 2.25rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
+            .char-input-container {
+                gap: 0.25rem;
+            }
+        }
+        .speaker-btn-spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-3xl mx-auto">
+        <div id="game-container" class="relative w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+            
+             <!-- Botão de Configurações -->
+            <button id="settings-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+
+            <div id="loading-state" class="text-center p-8">
+                <p class="text-lg text-gray-600 dark:text-gray-400">Carregando desafio...</p>
+            </div>
+            
+            <header id="game-header" class="mb-6 hidden">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">Phrasal Verbs Challenge</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-2">Complete a frase com o "phrasal verb" correto.</p>
+                <div class="mt-4 flex justify-between items-center text-lg">
+                    <span id="level-display" class="font-semibold bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full">Fase: 1</span>
+                    <span id="score-display" class="font-semibold bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full">Pontos: 0</span>
+                </div>
+            </header>
+
+            <main id="main-content" class="hidden">
+                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center gap-3">
+                    <div id="example-sentence" class="text-xl md:text-2xl font-normal tracking-wide leading-relaxed flex items-center justify-center flex-wrap min-h-[4rem]"></div>
+                    <button id="sentence-speaker-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    </button>
+                </div>
+
+                <div class="my-6">
+                    <p class="text-gray-500 dark:text-gray-400 mb-3">Escolha um dos phrasal verbs abaixo:</p>
+                    <div id="options-container" class="flex justify-center gap-4 flex-wrap"></div>
+                </div>
+
+                <div id="feedback-message" class="min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col"></div>
+
+                <button id="next-level-btn" class="hidden w-full md:w-1/2 mx-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-xl transition duration-300 shadow-md">Continue</button>
+            </main>
+            
+            <div id="game-over-screen" class="hidden text-center">
+                <h2 class="text-3xl font-bold mb-4">Parabéns!</h2>
+                <p class="text-xl mb-4">Você completou todas as fases!</p>
+                <p class="text-2xl mb-6">Sua pontuação final é: <span id="final-score" class="font-bold text-green-500"></span></p>
+                <button id="restart-btn" class="w-full md:w-1/2 mx-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg text-xl transition duration-300 shadow-md">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de API Key -->
+    <div id="api-key-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-bold mb-4">Configurar API Key do Gemini</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Para usar a função de áudio, por favor, insira sua API Key do Google Gemini. Você pode obter uma no <a href="https://aistudio.google.com/keys" target="_blank" class="text-blue-500 hover:underline">Google AI Studio</a>.</p>
+            <div>
+                <label for="api-key-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 text-left">Sua API Key</label>
+                <input type="password" id="api-key-input" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="close-modal-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">Cancelar</button>
+                <button id="save-api-key-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let vocabulary = [];
+            let usedExamples = [];
+            let currentLevel = 0;
+            let score = 0;
+            let currentCorrectAnswer = '';
+            let currentPhraseData = null;
+            let geminiApiKey = '';
+
+            const loadingState = document.getElementById('loading-state');
+            const gameHeader = document.getElementById('game-header');
+            const mainContent = document.getElementById('main-content');
+            const levelDisplay = document.getElementById('level-display');
+            const scoreDisplay = document.getElementById('score-display');
+            const exampleSentenceEl = document.getElementById('example-sentence');
+            const sentenceSpeakerBtn = document.getElementById('sentence-speaker-btn');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackMessage = document.getElementById('feedback-message');
+            const nextLevelBtn = document.getElementById('next-level-btn');
+            const gameOverScreen = document.getElementById('game-over-screen');
+            const finalScoreEl = document.getElementById('final-score');
+            const restartBtn = document.getElementById('restart-btn');
+            
+            const settingsBtn = document.getElementById('settings-btn');
+            const apiKeyModal = document.getElementById('api-key-modal');
+            const apiKeyInput = document.getElementById('api-key-input');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const saveApiKeyBtn = document.getElementById('save-api-key-btn');
+            
+            // --- GERENCIAMENTO DA API KEY ---
+            geminiApiKey = localStorage.getItem('geminiApiKey') || '';
+            apiKeyInput.value = geminiApiKey;
+
+            settingsBtn.addEventListener('click', () => apiKeyModal.classList.remove('hidden'));
+            closeModalBtn.addEventListener('click', () => apiKeyModal.classList.add('hidden'));
+            saveApiKeyBtn.addEventListener('click', () => {
+                geminiApiKey = apiKeyInput.value.trim();
+                localStorage.setItem('geminiApiKey', geminiApiKey);
+                apiKeyModal.classList.add('hidden');
+                if (!geminiApiKey) {
+                    alert('API Key removida. A função de áudio ficará desabilitada.');
+                } else {
+                    alert('API Key salva com sucesso!');
+                }
+            });
+
+            // --- LÓGICA DE ÁUDIO (TEXT-TO-SPEECH) ---
+            function base64ToArrayBuffer(base64) {
+                const binaryString = window.atob(base64);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                return bytes.buffer;
+            }
+
+            function pcmToWav(pcmData, sampleRate) {
+                const numChannels = 1;
+                const bitsPerSample = 16;
+                const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+                const blockAlign = numChannels * (bitsPerSample / 8);
+                const dataSize = pcmData.length * (bitsPerSample / 8);
+                const buffer = new ArrayBuffer(44 + dataSize);
+                const view = new DataView(buffer);
+
+                function writeString(view, offset, string) {
+                    for (let i = 0; i < string.length; i++) {
+                        view.setUint8(offset + i, string.charCodeAt(i));
+                    }
+                }
+                
+                writeString(view, 0, 'RIFF');
+                view.setUint32(4, 36 + dataSize, true);
+                writeString(view, 8, 'WAVE');
+                writeString(view, 12, 'fmt ');
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
+                view.setUint16(22, numChannels, true);
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, byteRate, true);
+                view.setUint16(32, blockAlign, true);
+                view.setUint16(34, bitsPerSample, true);
+                writeString(view, 36, 'data');
+                view.setUint32(40, dataSize, true);
+
+                const pcm16 = new Int16Array(pcmData.buffer);
+                 for (let i = 0; i < pcm16.length; i++) {
+                    view.setInt16(44 + i * 2, pcm16[i], true);
+                }
+
+                return new Blob([view], { type: 'audio/wav' });
+            }
+
+            async function playAudio(text, button) {
+                if (!geminiApiKey) {
+                    alert('Por favor, insira sua API Key do Gemini nas configurações para usar o áudio.');
+                    apiKeyModal.classList.remove('hidden');
+                    return;
+                }
+
+                const originalIcon = button.innerHTML;
+                button.innerHTML = `<svg class="speaker-btn-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+                button.disabled = true;
+
+                try {
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${geminiApiKey}`;
+                    const payload = {
+                        contents: [{ parts: [{ text }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error.message || `HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const audioData = result?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                    const mimeType = result?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
+
+                    if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                        const pcmData = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmData);
+                        const wavBlob = pcmToWav(pcm16, sampleRate);
+                        const audioUrl = URL.createObjectURL(wavBlob);
+                        const audio = new Audio(audioUrl);
+                        audio.play();
+                    } else {
+                        throw new Error('Resposta da API de áudio inválida.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao gerar áudio:', error);
+                    alert(`Falha ao gerar áudio: ${error.message}`);
+                } finally {
+                    button.innerHTML = originalIcon;
+                    button.disabled = false;
+                }
+            }
+
+
+            async function loadVocabularyFromUrl() {
+                const url = 'https://xxncsxx.github.io/Phrasal_Verbs_challange/Phrasal_Verbs.xlsx';
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
+                    const arrayBuffer = await response.arrayBuffer();
+                    const data = new Uint8Array(arrayBuffer);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const json = XLSX.utils.sheet_to_json(worksheet);
+                    
+                    if (json.length > 0 && 'Phrasal Verb' in json[0] && 'Example' in json[0] && 'Meaning' in json[0]) {
+                        vocabulary = json.filter(item => {
+                            if (!item['Phrasal Verb'] || !item.Example) return false;
+                            const phrasalVerb = item['Phrasal Verb'].trim();
+                            const example = item.Example;
+                            const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+                            return regex.test(example);
+                        });
+
+                        if (vocabulary.length < 3) {
+                             throw new Error("São necessários pelo menos 3 'phrasal verbs' válidos na planilha para o jogo funcionar.");
+                        }
+
+                        loadingState.classList.add('hidden');
+                        gameHeader.classList.remove('hidden');
+                        mainContent.classList.remove('hidden');
+                        mainContent.classList.add('fade-in');
+                        loadLevel();
+                    } else {
+                        throw new Error("Formato de arquivo inválido. Verifique os cabeçalhos das colunas: 'Phrasal Verb', 'Example', 'Meaning'.");
+                    }
+                } catch (error) {
+                    loadingState.innerHTML = `<p class="text-red-500">Falha ao carregar vocabulário: ${error.message}</p>`;
+                }
+            }
+            
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            function loadLevel() {
+                mainContent.classList.remove('fade-in');
+                void mainContent.offsetWidth; 
+                mainContent.classList.add('fade-in');
+
+                if (usedExamples.length === vocabulary.length) {
+                    showGameOver();
+                    return;
+                }
+                
+                currentLevel++;
+                feedbackMessage.innerHTML = '';
+                nextLevelBtn.classList.add('hidden');
+                
+                do {
+                    currentPhraseData = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+                } while (usedExamples.includes(currentPhraseData.Example));
+                
+                usedExamples.push(currentPhraseData.Example);
+                const phrasalVerb = currentPhraseData['Phrasal Verb'].trim();
+                currentCorrectAnswer = phrasalVerb.toLowerCase();
+
+                levelDisplay.textContent = `Fase: ${currentLevel}`;
+                
+                const wrongAnswers = [];
+                const wordPool = vocabulary.filter(item => item['Phrasal Verb'].trim().toLowerCase() !== currentCorrectAnswer);
+                shuffleArray(wordPool);
+
+                for(let i = 0; i < wordPool.length && wrongAnswers.length < 2; i++){
+                    wrongAnswers.push(wordPool[i]['Phrasal Verb'].trim());
+                }
+
+                const options = shuffleArray([phrasalVerb, ...wrongAnswers]);
+
+                optionsContainer.innerHTML = '';
+                options.forEach(option => {
+                    const optionEl = document.createElement('div');
+                    optionEl.className = 'flex items-center gap-2 bg-gray-200 dark:bg-gray-600 py-2 px-4 rounded-lg font-semibold text-lg';
+                    
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = option;
+                    
+                    const speakerBtn = document.createElement('button');
+                    speakerBtn.className = 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition';
+                    speakerBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+                    speakerBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        playAudio(option, speakerBtn);
+                    };
+
+                    optionEl.appendChild(textSpan);
+                    optionEl.appendChild(speakerBtn);
+                    optionsContainer.appendChild(optionEl);
+                });
+
+                const exampleSentence = currentPhraseData.Example;
+                const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+                const parts = exampleSentence.split(regex);
+
+                const sentenceToSpeak = parts.join(' ... ');
+                sentenceSpeakerBtn.onclick = () => playAudio(sentenceToSpeak, sentenceSpeakerBtn);
+
+                exampleSentenceEl.innerHTML = '';
+                
+                const part1 = document.createElement('span');
+                part1.textContent = parts[0];
+                exampleSentenceEl.appendChild(part1);
+
+                const inputContainer = document.createElement('div');
+                inputContainer.className = 'char-input-container';
+                inputContainer.id = 'input-wrapper';
+                
+                for (let i = 0; i < phrasalVerb.length; i++) {
+                    if (phrasalVerb[i] === ' ') {
+                        const space = document.createElement('span');
+                        space.className = 'w-4';
+                        inputContainer.appendChild(space);
+                    } else {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.maxLength = 1;
+                        input.className = 'char-input';
+                        inputContainer.appendChild(input);
+                    }
+                }
+                exampleSentenceEl.appendChild(inputContainer);
+                
+                const part2 = document.createElement('span');
+                part2.textContent = parts[1] || '';
+                exampleSentenceEl.appendChild(part2);
+                
+                setupInputEvents();
+                setTimeout(() => {
+                    const firstInput = inputContainer.querySelector('input');
+                    if (firstInput) firstInput.focus();
+                }, 100);
+            }
+
+            function setupInputEvents() {
+                const inputs = exampleSentenceEl.querySelectorAll('.char-input');
+                inputs.forEach(input => {
+                    input.addEventListener('input', handleInput);
+                    input.addEventListener('keydown', handleKeyDown);
+                });
+            }
+
+            function handleInput(e) {
+                const input = e.target;
+                if (input.value) {
+                    let next = input.nextElementSibling;
+                    while(next && next.tagName !== 'INPUT'){
+                        next = next.nextElementSibling;
+                    }
+                    if(next) next.focus();
+                }
+
+                const allInputs = Array.from(exampleSentenceEl.querySelectorAll('.char-input'));
+                const isComplete = allInputs.every(i => i.value);
+                if (isComplete) {
+                    checkAnswer();
+                }
+            }
+
+            function handleKeyDown(e) {
+                const input = e.target;
+                if (e.key === 'Backspace' && !input.value) {
+                     let prev = input.previousElementSibling;
+                    while(prev && prev.tagName !== 'INPUT'){
+                        prev = prev.previousElementSibling;
+                    }
+                    if(prev) prev.focus();
+                } else if (e.key === 'ArrowLeft') {
+                    let prev = input.previousElementSibling;
+                    while(prev && prev.tagName !== 'INPUT'){
+                        prev = prev.previousElementSibling;
+                    }
+                    if(prev) prev.focus();
+                } else if (e.key === 'ArrowRight') {
+                    let next = input.nextElementSibling;
+                    while(next && next.tagName !== 'INPUT'){
+                        next = next.nextElementSibling;
+                    }
+                    if(next) next.focus();
+                } else if (e.key === 'Enter') {
+                     checkAnswer();
+                }
+            }
+
+            function checkAnswer() {
+                const wrapper = document.getElementById('input-wrapper');
+                if (!wrapper || wrapper.dataset.checked === 'true') return;
+
+                const inputs = wrapper.querySelectorAll('.char-input');
+                const typedWord = Array.from(inputs).map(i => i.value).join('').toLowerCase();
+                
+                if (typedWord.length !== currentCorrectAnswer.replace(/ /g, '').length) return;
+
+                wrapper.dataset.checked = 'true';
+                inputs.forEach(i => i.disabled = true);
+
+                if (typedWord === currentCorrectAnswer.replace(/ /g, '')) {
+                    feedbackMessage.innerHTML = `Correto! 🎉 <span class="block text-base font-normal mt-1">${currentPhraseData.Meaning}</span>`;
+                    feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-green-500';
+                    score += 10;
+                    scoreDisplay.textContent = `Pontos: ${score}`;
+                    
+                    const answerText = document.createElement('span');
+                    answerText.className = 'font-bold text-green-500 underline mx-2';
+                    answerText.textContent = currentPhraseData['Phrasal Verb'].trim();
+                    wrapper.parentNode.replaceChild(answerText, wrapper);
+
+                    // Atualiza o botão para tocar a frase completa
+                    sentenceSpeakerBtn.onclick = () => playAudio(currentPhraseData.Example, sentenceSpeakerBtn);
+                    
+                    nextLevelBtn.classList.remove('hidden');
+                    nextLevelBtn.focus();
+                } else {
+                    feedbackMessage.textContent = 'Ops, tente novamente!';
+                    feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-red-500';
+                    wrapper.classList.add('animate-shake');
+                    setTimeout(() => {
+                       wrapper.classList.remove('animate-shake');
+                       const firstInput = wrapper.querySelector('input');
+                       if (firstInput) {
+                           inputs.forEach(i => {
+                               i.value = '';
+                               i.disabled = false;
+                           });
+                           firstInput.focus();
+                           wrapper.dataset.checked = 'false';
+                       }
+                    }, 500);
+                }
+            }
+
+            function showGameOver() {
+                mainContent.classList.add('hidden');
+                gameHeader.classList.add('hidden');
+                gameOverScreen.classList.remove('hidden');
+                finalScoreEl.textContent = score;
+            }
+
+            function restartGame() {
+                currentLevel = 0;
+                score = 0;
+                usedExamples = [];
+                currentPhraseData = null;
+                scoreDisplay.textContent = `Pontos: 0`;
+                mainContent.classList.remove('hidden');
+                gameHeader.classList.remove('hidden');
+                gameOverScreen.classList.add('hidden');
+                loadLevel();
+            }
+            
+            nextLevelBtn.addEventListener('click', loadLevel);
+            restartBtn.addEventListener('click', restartGame);
+
+            loadVocabularyFromUrl();
+        });
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .animate-shake {
+                animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            }
+            @keyframes shake {
+                10%, 90% { transform: translate3d(-1px, 0, 0); }
+                20%, 80% { transform: translate3d(2px, 0, 0); }
+                30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+                40%, 60% { transform: translate3d(4px, 0, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+
