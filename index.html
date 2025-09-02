@@ -55,9 +55,9 @@
         }
         @media (max-width: 640px) {
             .char-input {
-                width: 2.25rem;
-                height: 3rem;
-                font-size: 1.25rem;
+                width: 2rem;
+                height: 2.75rem;
+                font-size: 1.125rem;
             }
             .char-input-container {
                 gap: 0.25rem;
@@ -72,10 +72,10 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex items-center justify-center min-h-screen p-4">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex items-center justify-center min-h-screen p-2 sm:p-4">
 
     <div class="w-full max-w-3xl mx-auto">
-        <div id="game-container" class="relative w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+        <div id="game-container" class="relative w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 text-center">
             
              <!-- Botão de Configurações -->
             <button id="settings-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
@@ -87,37 +87,37 @@
             </div>
             
             <header id="game-header" class="mb-6 hidden">
-                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">Phrasal Verbs Challenge</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-2">Complete a frase com o "phrasal verb" correto.</p>
-                <div class="mt-4 flex justify-between items-center text-lg">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">Phrasal Verbs Challenge</h1>
+                <p class="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2">Complete a frase com o "phrasal verb" correto.</p>
+                <div class="mt-4 flex flex-col sm:flex-row justify-between items-center text-base sm:text-lg gap-2 sm:gap-0">
                     <span id="level-display" class="font-semibold bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full">Fase: 1</span>
                     <span id="score-display" class="font-semibold bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full">Pontos: 0</span>
                 </div>
             </header>
 
             <main id="main-content" class="hidden">
-                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center gap-3">
-                    <div id="example-sentence" class="text-xl md:text-2xl font-normal tracking-wide leading-relaxed flex items-center justify-center flex-wrap min-h-[4rem]"></div>
-                    <button id="sentence-speaker-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition">
+                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center gap-2 sm:gap-3">
+                    <div id="example-sentence" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide leading-relaxed flex items-center justify-center flex-wrap min-h-[4rem]"></div>
+                    <button id="sentence-speaker-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                     </button>
                 </div>
 
                 <div class="my-6">
-                    <p class="text-gray-500 dark:text-gray-400 mb-3">Escolha um dos phrasal verbs abaixo:</p>
-                    <div id="options-container" class="flex justify-center gap-4 flex-wrap"></div>
+                    <p class="text-gray-500 dark:text-gray-400 mb-3 text-sm sm:text-base">Escolha um dos phrasal verbs abaixo:</p>
+                    <div id="options-container" class="flex justify-center gap-2 sm:gap-4 flex-wrap"></div>
                 </div>
 
-                <div id="feedback-message" class="min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col"></div>
+                <div id="feedback-message" class="min-h-[4rem] text-base sm:text-lg font-semibold mb-4 flex items-center justify-center flex-col"></div>
 
-                <button id="next-level-btn" class="hidden w-full md:w-1/2 mx-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-xl transition duration-300 shadow-md">Continue</button>
+                <button id="next-level-btn" class="hidden w-full md:w-1/2 mx-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-lg sm:text-xl transition duration-300 shadow-md">Continue</button>
             </main>
             
             <div id="game-over-screen" class="hidden text-center">
-                <h2 class="text-3xl font-bold mb-4">Parabéns!</h2>
-                <p class="text-xl mb-4">Você completou todas as fases!</p>
-                <p class="text-2xl mb-6">Sua pontuação final é: <span id="final-score" class="font-bold text-green-500"></span></p>
-                <button id="restart-btn" class="w-full md:w-1/2 mx-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg text-xl transition duration-300 shadow-md">Jogar Novamente</button>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-4">Parabéns!</h2>
+                <p class="text-lg sm:text-xl mb-4">Você completou todas as fases!</p>
+                <p class="text-xl sm:text-2xl mb-6">Sua pontuação final é: <span id="final-score" class="font-bold text-green-500"></span></p>
+                <button id="restart-btn" class="w-full md:w-1/2 mx-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg text-lg sm:text-xl transition duration-300 shadow-md">Jogar Novamente</button>
             </div>
         </div>
     </div>
@@ -375,21 +375,21 @@
                 optionsContainer.innerHTML = '';
                 options.forEach(option => {
                     const optionEl = document.createElement('div');
-                    optionEl.className = 'flex items-center gap-2 bg-gray-200 dark:bg-gray-600 py-2 px-4 rounded-lg font-semibold text-lg';
+                    optionEl.className = 'flex items-center gap-2 bg-gray-200 dark:bg-gray-600 py-2 px-3 sm:px-4 rounded-lg font-semibold text-base sm:text-lg';
                     
                     const textSpan = document.createElement('span');
                     textSpan.textContent = option;
                     
-                    const speakerBtn = document.createElement('button');
-                    speakerBtn.className = 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition';
-                    speakerBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
-                    speakerBtn.onclick = (e) => {
+                    const speakerBtnEl = document.createElement('button');
+                    speakerBtnEl.className = 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition';
+                    speakerBtnEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+                    speakerBtnEl.onclick = (e) => {
                         e.stopPropagation();
-                        playAudio(option, speakerBtn);
+                        playAudio(option, speakerBtnEl);
                     };
 
                     optionEl.appendChild(textSpan);
-                    optionEl.appendChild(speakerBtn);
+                    optionEl.appendChild(speakerBtnEl);
                     optionsContainer.appendChild(optionEl);
                 });
 
@@ -413,7 +413,7 @@
                 for (let i = 0; i < phrasalVerb.length; i++) {
                     if (phrasalVerb[i] === ' ') {
                         const space = document.createElement('span');
-                        space.className = 'w-4';
+                        space.className = 'w-2 sm:w-4';
                         inputContainer.appendChild(space);
                     } else {
                         const input = document.createElement('input');
