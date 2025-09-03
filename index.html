@@ -97,11 +97,16 @@
             </header>
 
             <main id="main-content" class="hidden">
-                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center gap-2 sm:gap-3">
+                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
                     <div id="example-sentence" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide leading-relaxed flex items-center justify-center flex-wrap min-h-[4rem]"></div>
-                    <button id="sentence-speaker-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                    </button>
+                    <div id="sentence-controls" class="flex justify-center gap-4 mt-3">
+                         <button id="sentence-translate-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                        </button>
+                        <button id="sentence-speaker-btn" class="self-center text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="my-6">
@@ -149,6 +154,8 @@
             let currentCorrectAnswer = '';
             let currentPhraseData = null;
             let geminiApiKey = '';
+            let currentSentenceElements = [];
+            let isSentenceTranslated = false;
 
             const loadingState = document.getElementById('loading-state');
             const gameHeader = document.getElementById('game-header');
@@ -157,6 +164,7 @@
             const scoreDisplay = document.getElementById('score-display');
             const exampleSentenceEl = document.getElementById('example-sentence');
             const sentenceSpeakerBtn = document.getElementById('sentence-speaker-btn');
+            const sentenceTranslateBtn = document.getElementById('sentence-translate-btn');
             const optionsContainer = document.getElementById('options-container');
             const feedbackMessage = document.getElementById('feedback-message');
             const nextLevelBtn = document.getElementById('next-level-btn');
@@ -186,7 +194,29 @@
                     alert('API Key salva com sucesso!');
                 }
             });
+            
+            // --- LÓGICA DE TRADUÇÃO ---
+            function toggleTranslation() {
+                if(isSentenceTranslated) {
+                    showOriginal();
+                } else {
+                    showTranslation();
+                }
+                isSentenceTranslated = !isSentenceTranslated;
+            }
 
+            function showTranslation() {
+                if (currentPhraseData && currentPhraseData.Example_pt) {
+                    exampleSentenceEl.innerHTML = `<span class="italic text-gray-500 dark:text-gray-400">${currentPhraseData.Example_pt}</span>`;
+                }
+            }
+
+            function showOriginal() {
+                exampleSentenceEl.innerHTML = '';
+                currentSentenceElements.forEach(el => exampleSentenceEl.appendChild(el));
+                setupInputEvents();
+            }
+            
             // --- LÓGICA DE ÁUDIO (TEXT-TO-SPEECH) ---
             function base64ToArrayBuffer(base64) {
                 const binaryString = window.atob(base64);
@@ -324,7 +354,7 @@
                         mainContent.classList.add('fade-in');
                         loadLevel();
                     } else {
-                        throw new Error("Formato de arquivo inválido. Verifique os cabeçalhos das colunas: 'Phrasal Verb', 'Example', 'Meaning'.");
+                        throw new Error("Formato de arquivo inválido. Verifique os cabeçalhos: 'Phrasal Verb', 'Example', 'Meaning'. Para tradução, adicione 'Example_pt'.");
                     }
                 } catch (error) {
                     loadingState.innerHTML = `<p class="text-red-500">Falha ao carregar vocabulário: ${error.message}</p>`;
@@ -352,6 +382,7 @@
                 currentLevel++;
                 feedbackMessage.innerHTML = '';
                 nextLevelBtn.classList.add('hidden');
+                isSentenceTranslated = false;
                 
                 do {
                     currentPhraseData = vocabulary[Math.floor(Math.random() * vocabulary.length)];
@@ -400,13 +431,15 @@
 
                 const sentenceToSpeak = parts.join(' ... ');
                 sentenceSpeakerBtn.onclick = () => playAudio(sentenceToSpeak, sentenceSpeakerBtn);
+                sentenceTranslateBtn.onclick = toggleTranslation;
+                sentenceTranslateBtn.disabled = !currentPhraseData.Example_pt;
+
 
                 exampleSentenceEl.innerHTML = '';
                 
                 const part1 = document.createElement('span');
                 part1.textContent = parts[0];
-                exampleSentenceEl.appendChild(part1);
-
+                
                 const inputContainer = document.createElement('div');
                 inputContainer.className = 'char-input-container';
                 inputContainer.id = 'input-wrapper';
@@ -424,11 +457,12 @@
                         inputContainer.appendChild(input);
                     }
                 }
-                exampleSentenceEl.appendChild(inputContainer);
                 
                 const part2 = document.createElement('span');
                 part2.textContent = parts[1] || '';
-                exampleSentenceEl.appendChild(part2);
+                
+                currentSentenceElements = [part1, inputContainer, part2];
+                currentSentenceElements.forEach(el => exampleSentenceEl.appendChild(el));
                 
                 setupInputEvents();
                 setTimeout(() => {
@@ -500,6 +534,11 @@
                 inputs.forEach(i => i.disabled = true);
 
                 if (typedWord === currentCorrectAnswer.replace(/ /g, '')) {
+                    if (isSentenceTranslated) {
+                       showOriginal();
+                    }
+                    sentenceTranslateBtn.disabled = true;
+                    
                     feedbackMessage.innerHTML = `Correto! 🎉 <span class="block text-base font-normal mt-1">${currentPhraseData.Meaning}</span>`;
                     feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-green-500';
                     score += 10;
@@ -509,8 +548,7 @@
                     answerText.className = 'font-bold text-green-500 underline mx-2';
                     answerText.textContent = currentPhraseData['Phrasal Verb'].trim();
                     wrapper.parentNode.replaceChild(answerText, wrapper);
-
-                    // Atualiza o botão para tocar a frase completa
+                    
                     sentenceSpeakerBtn.onclick = () => playAudio(currentPhraseData.Example, sentenceSpeakerBtn);
                     
                     nextLevelBtn.classList.remove('hidden');
