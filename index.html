@@ -395,12 +395,29 @@
                 levelDisplay.textContent = `Fase: ${currentLevel}`;
                 
                 const wrongAnswers = [];
-                const wordPool = vocabulary.filter(item => item['Phrasal Verb'].trim().toLowerCase() !== currentCorrectAnswer);
-                shuffleArray(wordPool);
+                let wordPool = vocabulary.filter(item => item['Phrasal Verb'].trim().toLowerCase() !== currentCorrectAnswer);
 
-                for(let i = 0; i < wordPool.length && wrongAnswers.length < 2; i++){
-                    wrongAnswers.push(wordPool[i]['Phrasal Verb'].trim());
+                // Prioritize distractors with the same length and word count
+                const sameStructurePool = wordPool.filter(item => {
+                    const candidate = item['Phrasal Verb'].trim();
+                    return candidate.length === phrasalVerb.length && candidate.split(' ').length === phrasalVerb.split(' ').length;
+                });
+                shuffleArray(sameStructurePool);
+
+                while(wrongAnswers.length < 2 && sameStructurePool.length > 0) {
+                    wrongAnswers.push(sameStructurePool.shift()['Phrasal Verb'].trim());
                 }
+
+                // If not enough distractors with the same structure, fill with others
+                if (wrongAnswers.length < 2) {
+                    // Filter out the ones already used
+                    wordPool = wordPool.filter(item => !wrongAnswers.includes(item['Phrasal Verb'].trim()));
+                    shuffleArray(wordPool);
+                    while(wrongAnswers.length < 2 && wordPool.length > 0) {
+                        wrongAnswers.push(wordPool.shift()['Phrasal Verb'].trim());
+                    }
+                }
+
 
                 const options = shuffleArray([phrasalVerb, ...wrongAnswers]);
 
