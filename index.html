@@ -554,7 +554,7 @@
                     if (isSentenceTranslated) {
                        showOriginal();
                     }
-                    sentenceTranslateBtn.disabled = true;
+                    // sentenceTranslateBtn.disabled = true; // REMOVED
                     
                     feedbackMessage.innerHTML = `Correto! 🎉 <span class="block text-base font-normal mt-1">${currentPhraseData.Meaning}</span>`;
                     feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-green-500';
@@ -566,6 +566,11 @@
                     answerText.textContent = currentPhraseData['Phrasal Verb'].trim();
                     wrapper.parentNode.replaceChild(answerText, wrapper);
                     
+                    // Update currentSentenceElements so translation still works
+                    const part1 = currentSentenceElements[0];
+                    const part2 = currentSentenceElements[2];
+                    currentSentenceElements = [part1, answerText, part2];
+                    
                     sentenceSpeakerBtn.onclick = () => playAudio(currentPhraseData.Example, sentenceSpeakerBtn);
                     
                     nextLevelBtn.classList.remove('hidden');
@@ -573,6 +578,11 @@
                 } else {
                     feedbackMessage.textContent = 'Ops, tente novamente!';
                     feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-red-500';
+                    
+                    score -= 10;
+                    score = Math.max(0, score); // Prevent negative score
+                    scoreDisplay.textContent = `Pontos: ${score}`;
+
                     wrapper.classList.add('animate-shake');
                     setTimeout(() => {
                        wrapper.classList.remove('animate-shake');
