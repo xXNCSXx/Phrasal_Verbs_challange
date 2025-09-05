@@ -64,7 +64,7 @@
                 gap: 0.25rem;
             }
         }
-        .speaker-btn-spinner {
+        .btn-spinner {
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
@@ -78,10 +78,15 @@
     <div class="w-full max-w-3xl mx-auto">
         <div id="game-container" class="relative w-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 text-center">
             
-             <!-- Botão de Configurações -->
-            <button id="settings-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-            </button>
+             <!-- Botões de Ação -->
+            <div class="absolute top-4 right-4 flex gap-3">
+                 <button id="ranking-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M12 10v4h.01"/></svg>
+                </button>
+                <button id="settings-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </div>
 
             <div id="loading-state" class="text-center p-8">
                 <p class="text-lg text-gray-600 dark:text-gray-400">Carregando desafio...</p>
@@ -128,25 +133,56 @@
         </div>
     </div>
     
-    <!-- Modal de API Key -->
-    <div id="api-key-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
-            <h3 class="text-xl font-bold mb-4">Configurar API Key do Gemini</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">Para usar a função de áudio, por favor, insira sua API Key do Google Gemini. Você pode obter uma no <a href="https://aistudio.google.com/keys" target="_blank" class="text-blue-500 hover:underline">Google AI Studio</a>.</p>
+    <!-- Modal de Nome do Jogador -->
+    <div id="player-name-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
+            <h3 class="text-xl font-bold mb-4">Bem-vindo!</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Digite seu nome para começar a jogar e entrar no ranking.</p>
             <div>
-                <label for="api-key-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 text-left">Sua API Key</label>
-                <input type="password" id="api-key-input" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="player-name-input" placeholder="Seu nome" class="w-full px-3 py-2 text-center bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
+            <button id="start-game-btn" class="mt-6 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Começar Jogo</button>
+        </div>
+    </div>
+
+     <!-- Modal de Ranking -->
+    <div id="ranking-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="ranking-title" class="text-xl font-bold">Ranking</h3>
+                <button id="close-ranking-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">&times;</button>
+            </div>
+            <div id="ranking-content">
+                <p>Carregando ranking...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Configurações -->
+    <div id="settings-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-bold mb-4">Configurações</h3>
+            
+            <div class="space-y-4 text-left">
+                <div>
+                    <label for="api-key-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">API Key do Gemini (para áudio)</label>
+                    <input type="password" id="api-key-input" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
             <div class="mt-6 flex justify-end gap-3">
-                <button id="close-modal-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">Cancelar</button>
-                <button id="save-api-key-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Salvar</button>
+                <button id="close-settings-btn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">Cancelar</button>
+                <button id="save-settings-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Salvar</button>
             </div>
         </div>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             let vocabulary = [];
             let usedExamples = [];
             let currentLevel = 0;
@@ -156,7 +192,10 @@
             let geminiApiKey = '';
             let currentSentenceElements = [];
             let isSentenceTranslated = false;
+            let playerName = '';
+            let currentGameDocId = null;
 
+            // --- ELEMENTOS DO DOM ---
             const loadingState = document.getElementById('loading-state');
             const gameHeader = document.getElementById('game-header');
             const mainContent = document.getElementById('main-content');
@@ -172,136 +211,198 @@
             const finalScoreEl = document.getElementById('final-score');
             const restartBtn = document.getElementById('restart-btn');
             
+            // Modals
             const settingsBtn = document.getElementById('settings-btn');
-            const apiKeyModal = document.getElementById('api-key-modal');
+            const settingsModal = document.getElementById('settings-modal');
             const apiKeyInput = document.getElementById('api-key-input');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const saveApiKeyBtn = document.getElementById('save-api-key-btn');
+            const closeSettingsBtn = document.getElementById('close-settings-btn');
+            const saveSettingsBtn = document.getElementById('save-settings-btn');
+            const playerNameModal = document.getElementById('player-name-modal');
+            const playerNameInput = document.getElementById('player-name-input');
+            const startGameBtn = document.getElementById('start-game-btn');
+            const rankingBtn = document.getElementById('ranking-btn');
+            const rankingModal = document.getElementById('ranking-modal');
+            const closeRankingBtn = document.getElementById('close-ranking-btn');
+            const rankingContent = document.getElementById('ranking-content');
+            const rankingTitle = document.getElementById('ranking-title');
             
-            // --- GERENCIAMENTO DA API KEY ---
+            // --- FIREBASE ---
+            let db;
+            let dbInitialized = false;
+            let scoresCollectionPath = '';
+
+            async function initializeDb() {
+                let firebaseConfig;
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    
+                if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                    console.log("Usando configuração do ambiente (Canvas).");
+                    firebaseConfig = JSON.parse(__firebase_config);
+                    scoresCollectionPath = `artifacts/${appId}/public/data/scores`;
+                } else {
+                    console.warn("Configuração do Firebase não encontrada. Usando configuração manual. Certifique-se de que o login anônimo está ativado no seu projeto Firebase.");
+                    firebaseConfig = {
+                      apiKey: "AIzaSyB89Q_gASszI3o7z7UNaTSwXZ4g196iiYI",
+                      authDomain: "phrasal-verbs-challenge.firebaseapp.com",
+                      projectId: "phrasal-verbs-challenge",
+                      storageBucket: "phrasal-verbs-challenge.appspot.com",
+                      messagingSenderId: "546514241703",
+                      appId: "1:546514241703:web:90a59407481e7cb08db382",
+                      measurementId: "G-LN9C0CRHHW"
+                    };
+                    scoresCollectionPath = "scores";
+                }
+
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    const auth = getAuth(app);
+                    db = getFirestore(app);
+
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    
+                    dbInitialized = true;
+                    console.log("Firebase initialized successfully!");
+                } catch (error) {
+                    console.error("Firebase initialization failed:", error);
+                     if (error.code === 'auth/configuration-not-found') {
+                        console.error("DICA: Para ativar o ranking global, habilite o provedor de login 'Anônimo' nas configurações de Autenticação do seu projeto Firebase, conforme o Passo 2 do guia.");
+                    }
+                    dbInitialized = false;
+                }
+            }
+            
+            // --- GERENCIAMENTO DO JOGADOR E RANKING ---
+            playerName = localStorage.getItem('playerName') || '';
+            playerNameInput.value = playerName;
+            
+            startGameBtn.addEventListener('click', () => {
+                const name = playerNameInput.value.trim();
+                if (name) {
+                    playerName = name;
+                    localStorage.setItem('playerName', playerName);
+                    playerNameModal.classList.add('hidden');
+                    loadVocabularyFromUrl();
+                } else {
+                    alert('Por favor, digite seu nome.');
+                }
+            });
+
+            rankingBtn.addEventListener('click', async () => {
+                rankingModal.classList.remove('hidden');
+                
+                if (dbInitialized) { // Ranking Global
+                    rankingContent.innerHTML = '<p>Carregando ranking global...</p>';
+                    try {
+                        const scoresCol = collection(db, scoresCollectionPath);
+                        const scoreSnapshot = await getDocs(scoresCol);
+                        const scores = scoreSnapshot.docs.map(doc => doc.data());
+                        scores.sort((a, b) => b.score - a.score);
+                        displayRanking(scores.slice(0, 10)); 
+                    } catch (error) {
+                        console.error("Error fetching global scores: ", error);
+                        rankingContent.innerHTML = '<p class="text-red-500">Não foi possível carregar o ranking global.</p>';
+                    }
+                } else { // Ranking Local
+                    const scores = JSON.parse(localStorage.getItem('phrasalVerbScores') || '[]');
+                    scores.sort((a, b) => b.score - a.score);
+                    displayRanking(scores.slice(0, 10), true);
+                }
+            });
+
+            function displayRanking(topScores, isLocal = false) {
+                 rankingTitle.textContent = isLocal ? 'Top 10 (Ranking Local)' : 'Top 10 (Ranking Global)';
+                 if (topScores.length === 0) {
+                    rankingContent.innerHTML = '<p>Ainda não há pontuações. Jogue para ser o primeiro!</p>';
+                    return;
+                }
+                let rankingHTML = '<ol class="list-decimal list-inside space-y-2 mt-4">';
+                topScores.forEach((s, index) => {
+                    rankingHTML += `<li class="flex justify-between items-center"><span class="font-semibold">${index + 1}. ${s.name}</span> <span class="text-green-500 font-bold">${s.score} pts</span></li>`;
+                });
+                rankingHTML += '</ol>';
+                 if (isLocal && !dbInitialized) {
+                    rankingHTML += '<p class="text-xs text-gray-500 mt-3">O ranking global está indisponível. Verifique a configuração do Firebase.</p>';
+                }
+                rankingContent.innerHTML = rankingHTML;
+            }
+
+            closeRankingBtn.addEventListener('click', () => rankingModal.classList.add('hidden'));
+
+            async function saveScore() {
+                if (!playerName) return;
+
+                const scoreData = { name: playerName, score: score, timestamp: new Date().toISOString() };
+                
+                // Salva localmente
+                const localScores = JSON.parse(localStorage.getItem('phrasalVerbScores') || '[]');
+                localScores.push(scoreData);
+                localStorage.setItem('phrasalVerbScores', JSON.stringify(localScores));
+
+                if (dbInitialized) {
+                    try { 
+                        if (currentGameDocId) {
+                            // Atualiza o documento existente com a nova pontuação
+                            const docRef = doc(db, scoresCollectionPath, currentGameDocId);
+                            await updateDoc(docRef, {
+                                score: score,
+                                timestamp: new Date().toISOString()
+                            });
+                        } else {
+                            // Cria um novo documento se for a primeira vez salvando nesta sessão
+                            const docRef = await addDoc(collection(db, scoresCollectionPath), scoreData); 
+                            currentGameDocId = docRef.id; // Salva o ID para as próximas atualizações
+                        }
+                    } catch (e) { 
+                        console.error("Error saving/updating score in Firebase: ", e); 
+                    }
+                }
+            }
+
+            // --- GERENCIAMENTO DE CONFIGURAÇÕES ---
             geminiApiKey = localStorage.getItem('geminiApiKey') || '';
             apiKeyInput.value = geminiApiKey;
 
-            settingsBtn.addEventListener('click', () => apiKeyModal.classList.remove('hidden'));
-            closeModalBtn.addEventListener('click', () => apiKeyModal.classList.add('hidden'));
-            saveApiKeyBtn.addEventListener('click', () => {
+            settingsBtn.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+            closeSettingsBtn.addEventListener('click', () => settingsModal.classList.add('hidden'));
+            saveSettingsBtn.addEventListener('click', async () => {
                 geminiApiKey = apiKeyInput.value.trim();
                 localStorage.setItem('geminiApiKey', geminiApiKey);
-                apiKeyModal.classList.add('hidden');
-                if (!geminiApiKey) {
-                    alert('API Key removida. A função de áudio ficará desabilitada.');
-                } else {
-                    alert('API Key salva com sucesso!');
-                }
+                settingsModal.classList.add('hidden');
+                alert('API Key salva!');
             });
             
             // --- LÓGICA DE TRADUÇÃO ---
             function toggleTranslation() {
-                if(isSentenceTranslated) {
-                    showOriginal();
-                } else {
-                    showTranslation();
-                }
+                if(isSentenceTranslated) { showOriginal(); } else { showTranslation(); }
                 isSentenceTranslated = !isSentenceTranslated;
             }
-
             function showTranslation() {
-                if (currentPhraseData && currentPhraseData.Example_pt) {
-                    exampleSentenceEl.innerHTML = `<span class="italic text-gray-500 dark:text-gray-400">${currentPhraseData.Example_pt}</span>`;
-                }
+                if (currentPhraseData && currentPhraseData.Example_pt) { exampleSentenceEl.innerHTML = `<span class="italic text-gray-500 dark:text-gray-400">${currentPhraseData.Example_pt}</span>`; }
             }
-
             function showOriginal() {
                 exampleSentenceEl.innerHTML = '';
                 currentSentenceElements.forEach(el => exampleSentenceEl.appendChild(el));
-                setupInputEvents();
+                if (document.getElementById('input-wrapper')) { setupInputEvents(); }
             }
             
             // --- LÓGICA DE ÁUDIO (TEXT-TO-SPEECH) ---
-            function base64ToArrayBuffer(base64) {
-                const binaryString = window.atob(base64);
-                const len = binaryString.length;
-                const bytes = new Uint8Array(len);
-                for (let i = 0; i < len; i++) {
-                    bytes[i] = binaryString.charCodeAt(i);
-                }
-                return bytes.buffer;
-            }
-
-            function pcmToWav(pcmData, sampleRate) {
-                const numChannels = 1;
-                const bitsPerSample = 16;
-                const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
-                const blockAlign = numChannels * (bitsPerSample / 8);
-                const dataSize = pcmData.length * (bitsPerSample / 8);
-                const buffer = new ArrayBuffer(44 + dataSize);
-                const view = new DataView(buffer);
-
-                function writeString(view, offset, string) {
-                    for (let i = 0; i < string.length; i++) {
-                        view.setUint8(offset + i, string.charCodeAt(i));
-                    }
-                }
-                
-                writeString(view, 0, 'RIFF');
-                view.setUint32(4, 36 + dataSize, true);
-                writeString(view, 8, 'WAVE');
-                writeString(view, 12, 'fmt ');
-                view.setUint32(16, 16, true);
-                view.setUint16(20, 1, true);
-                view.setUint16(22, numChannels, true);
-                view.setUint32(24, sampleRate, true);
-                view.setUint32(28, byteRate, true);
-                view.setUint16(32, blockAlign, true);
-                view.setUint16(34, bitsPerSample, true);
-                writeString(view, 36, 'data');
-                view.setUint32(40, dataSize, true);
-
-                const pcm16 = new Int16Array(pcmData.buffer);
-                 for (let i = 0; i < pcm16.length; i++) {
-                    view.setInt16(44 + i * 2, pcm16[i], true);
-                }
-
-                return new Blob([view], { type: 'audio/wav' });
-            }
-
             async function playAudio(text, button) {
-                if (!geminiApiKey) {
-                    alert('Por favor, insira sua API Key do Gemini nas configurações para usar o áudio.');
-                    apiKeyModal.classList.remove('hidden');
-                    return;
-                }
-
+                if (!geminiApiKey) { alert('Por favor, insira sua API Key do Gemini nas configurações para usar o áudio.'); settingsModal.classList.remove('hidden'); return; }
                 const originalIcon = button.innerHTML;
-                button.innerHTML = `<svg class="speaker-btn-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+                button.innerHTML = `<svg class="btn-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
                 button.disabled = true;
-
                 try {
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${geminiApiKey}`;
-                    const payload = {
-                        contents: [{ parts: [{ text }] }],
-                        generationConfig: {
-                            responseModalities: ["AUDIO"],
-                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
-                        },
-                        model: "gemini-2.5-flash-preview-tts"
-                    };
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error.message || `HTTP error! status: ${response.status}`);
-                    }
-
+                    const payload = { contents: [{ parts: [{ text }] }], generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }, model: "gemini-2.5-flash-preview-tts" };
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) { const errorData = await response.json(); throw new Error(errorData.error.message || `HTTP error! status: ${response.status}`); }
                     const result = await response.json();
                     const audioData = result?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
                     const mimeType = result?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
-
                     if (audioData && mimeType && mimeType.startsWith("audio/")) {
                         const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
                         const pcmData = base64ToArrayBuffer(audioData);
@@ -310,22 +411,28 @@
                         const audioUrl = URL.createObjectURL(wavBlob);
                         const audio = new Audio(audioUrl);
                         audio.play();
-                    } else {
-                        throw new Error('Resposta da API de áudio inválida.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao gerar áudio:', error);
-                    alert(`Falha ao gerar áudio: ${error.message}`);
-                } finally {
-                    button.innerHTML = originalIcon;
-                    button.disabled = false;
-                }
+                    } else { throw new Error('Resposta da API de áudio inválida.'); }
+                } catch (error) { console.error('Erro ao gerar áudio:', error); alert(`Falha ao gerar áudio: ${error.message}`);
+                } finally { button.innerHTML = originalIcon; button.disabled = false; }
+            }
+            function base64ToArrayBuffer(base64) {
+                const binaryString = window.atob(base64); const len = binaryString.length; const bytes = new Uint8Array(len); for (let i = 0; i < len; i++) { bytes[i] = binaryString.charCodeAt(i); } return bytes.buffer;
+            }
+            function pcmToWav(pcmData, sampleRate) {
+                const numChannels = 1, bitsPerSample = 16, byteRate = sampleRate * numChannels * (bitsPerSample / 8), blockAlign = numChannels * (bitsPerSample / 8), dataSize = pcmData.length * (bitsPerSample / 8), buffer = new ArrayBuffer(44 + dataSize), view = new DataView(buffer);
+                function writeString(view, offset, string) { for (let i = 0; i < string.length; i++) { view.setUint8(offset + i, string.charCodeAt(i)); } }
+                writeString(view, 0, 'RIFF'); view.setUint32(4, 36 + dataSize, true); writeString(view, 8, 'WAVE'); writeString(view, 12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, numChannels, true); view.setUint32(24, sampleRate, true); view.setUint32(28, byteRate, true); view.setUint16(32, blockAlign, true); view.setUint16(34, bitsPerSample, true); writeString(view, 36, 'data'); view.setUint32(40, dataSize, true);
+                const pcm16 = new Int16Array(pcmData.buffer); for (let i = 0; i < pcm16.length; i++) { view.setInt16(44 + i * 2, pcm16[i], true); }
+                return new Blob([view], { type: 'audio/wav' });
             }
 
-
+            // --- LÓGICA DO JOGO ---
             async function loadVocabularyFromUrl() {
                 const url = 'https://xxncsxx.github.io/Phrasal_Verbs_challange/Phrasal_Verbs.xlsx';
                 try {
+                    loadingState.classList.remove('hidden');
+                    gameHeader.classList.add('hidden');
+                    mainContent.classList.add('hidden');
                     const response = await fetch(url);
                     if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
                     const arrayBuffer = await response.arrayBuffer();
@@ -334,133 +441,58 @@
                     const firstSheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[firstSheetName];
                     const json = XLSX.utils.sheet_to_json(worksheet);
-                    
                     if (json.length > 0 && 'Phrasal Verb' in json[0] && 'Example' in json[0] && 'Meaning' in json[0]) {
-                        vocabulary = json.filter(item => {
-                            if (!item['Phrasal Verb'] || !item.Example) return false;
-                            const phrasalVerb = item['Phrasal Verb'].trim();
-                            const example = item.Example;
-                            const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
-                            return regex.test(example);
-                        });
-
-                        if (vocabulary.length < 3) {
-                             throw new Error("São necessários pelo menos 3 'phrasal verbs' válidos na planilha para o jogo funcionar.");
-                        }
-
-                        loadingState.classList.add('hidden');
-                        gameHeader.classList.remove('hidden');
-                        mainContent.classList.remove('hidden');
-                        mainContent.classList.add('fade-in');
+                        vocabulary = json.filter(item => { if (!item['Phrasal Verb'] || !item.Example) return false; const phrasalVerb = item['Phrasal Verb'].trim(); const example = item.Example; const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'); return regex.test(example); });
+                        if (vocabulary.length < 3) { throw new Error("São necessários pelo menos 3 'phrasal verbs' válidos na planilha para o jogo funcionar."); }
+                        loadingState.classList.add('hidden'); gameHeader.classList.remove('hidden'); mainContent.classList.remove('hidden'); mainContent.classList.add('fade-in');
                         loadLevel();
-                    } else {
-                        throw new Error("Formato de arquivo inválido. Verifique os cabeçalhos: 'Phrasal Verb', 'Example', 'Meaning'. Para tradução, adicione 'Example_pt'.");
-                    }
-                } catch (error) {
-                    loadingState.innerHTML = `<p class="text-red-500">Falha ao carregar vocabulário: ${error.message}</p>`;
-                }
+                    } else { throw new Error("Formato de arquivo inválido. Verifique os cabeçalhos: 'Phrasal Verb', 'Example', 'Meaning'. Para tradução, adicione 'Example_pt'."); }
+                } catch (error) { loadingState.innerHTML = `<p class="text-red-500">Falha ao carregar vocabulário: ${error.message}</p>`; }
             }
-            
             function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
+                for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array;
             }
-
             function loadLevel() {
-                mainContent.classList.remove('fade-in');
-                void mainContent.offsetWidth; 
-                mainContent.classList.add('fade-in');
-
-                if (usedExamples.length === vocabulary.length) {
-                    showGameOver();
-                    return;
-                }
-                
-                currentLevel++;
-                feedbackMessage.innerHTML = '';
-                nextLevelBtn.classList.add('hidden');
-                isSentenceTranslated = false;
-                
-                do {
-                    currentPhraseData = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-                } while (usedExamples.includes(currentPhraseData.Example));
-                
+                mainContent.classList.remove('fade-in'); void mainContent.offsetWidth; mainContent.classList.add('fade-in');
+                if (usedExamples.length === vocabulary.length) { showGameOver(); return; }
+                currentLevel++; feedbackMessage.innerHTML = ''; nextLevelBtn.classList.add('hidden'); isSentenceTranslated = false;
+                do { currentPhraseData = vocabulary[Math.floor(Math.random() * vocabulary.length)]; } while (usedExamples.includes(currentPhraseData.Example));
                 usedExamples.push(currentPhraseData.Example);
-                const phrasalVerb = currentPhraseData['Phrasal Verb'].trim();
-                currentCorrectAnswer = phrasalVerb.toLowerCase();
-
+                const phrasalVerb = currentPhraseData['Phrasal Verb'].trim(); currentCorrectAnswer = phrasalVerb.toLowerCase();
                 levelDisplay.textContent = `Fase: ${currentLevel}`;
-                
-                const wrongAnswers = [];
-                let wordPool = vocabulary.filter(item => item['Phrasal Verb'].trim().toLowerCase() !== currentCorrectAnswer);
-
-                // Prioritize distractors with the same length and word count
-                const sameStructurePool = wordPool.filter(item => {
-                    const candidate = item['Phrasal Verb'].trim();
-                    return candidate.length === phrasalVerb.length && candidate.split(' ').length === phrasalVerb.split(' ').length;
-                });
+                const wrongAnswers = []; let wordPool = vocabulary.filter(item => item['Phrasal Verb'].trim().toLowerCase() !== currentCorrectAnswer);
+                const sameStructurePool = wordPool.filter(item => { const candidate = item['Phrasal Verb'].trim(); return candidate.length === phrasalVerb.length && candidate.split(' ').length === phrasalVerb.split(' ').length; });
                 shuffleArray(sameStructurePool);
-
-                while(wrongAnswers.length < 2 && sameStructurePool.length > 0) {
-                    wrongAnswers.push(sameStructurePool.shift()['Phrasal Verb'].trim());
-                }
-
-                // If not enough distractors with the same structure, fill with others
-                if (wrongAnswers.length < 2) {
-                    // Filter out the ones already used
-                    wordPool = wordPool.filter(item => !wrongAnswers.includes(item['Phrasal Verb'].trim()));
-                    shuffleArray(wordPool);
-                    while(wrongAnswers.length < 2 && wordPool.length > 0) {
-                        wrongAnswers.push(wordPool.shift()['Phrasal Verb'].trim());
-                    }
-                }
-
-
+                while(wrongAnswers.length < 2 && sameStructurePool.length > 0) { wrongAnswers.push(sameStructurePool.shift()['Phrasal Verb'].trim()); }
+                if (wrongAnswers.length < 2) { wordPool = wordPool.filter(item => !wrongAnswers.includes(item['Phrasal Verb'].trim())); shuffleArray(wordPool); while(wrongAnswers.length < 2 && wordPool.length > 0) { wrongAnswers.push(wordPool.shift()['Phrasal Verb'].trim()); } }
                 const options = shuffleArray([phrasalVerb, ...wrongAnswers]);
-
                 optionsContainer.innerHTML = '';
                 options.forEach(option => {
                     const optionEl = document.createElement('div');
                     optionEl.className = 'flex items-center gap-2 bg-gray-200 dark:bg-gray-600 py-2 px-3 sm:px-4 rounded-lg font-semibold text-base sm:text-lg';
-                    
                     const textSpan = document.createElement('span');
                     textSpan.textContent = option;
-                    
                     const speakerBtnEl = document.createElement('button');
                     speakerBtnEl.className = 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition';
                     speakerBtnEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
-                    speakerBtnEl.onclick = (e) => {
-                        e.stopPropagation();
-                        playAudio(option, speakerBtnEl);
-                    };
-
+                    speakerBtnEl.onclick = (e) => { e.stopPropagation(); playAudio(option, speakerBtnEl); };
                     optionEl.appendChild(textSpan);
                     optionEl.appendChild(speakerBtnEl);
                     optionsContainer.appendChild(optionEl);
                 });
-
-                const exampleSentence = currentPhraseData.Example;
-                const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+                const exampleSentence = currentPhraseData.Example; const regex = new RegExp(phrasalVerb.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
                 const parts = exampleSentence.split(regex);
-
                 const sentenceToSpeak = parts.join(' ... ');
                 sentenceSpeakerBtn.onclick = () => playAudio(sentenceToSpeak, sentenceSpeakerBtn);
                 sentenceTranslateBtn.onclick = toggleTranslation;
                 sentenceTranslateBtn.disabled = !currentPhraseData.Example_pt;
 
-
                 exampleSentenceEl.innerHTML = '';
-                
                 const part1 = document.createElement('span');
                 part1.textContent = parts[0];
-                
                 const inputContainer = document.createElement('div');
                 inputContainer.className = 'char-input-container';
                 inputContainer.id = 'input-wrapper';
-                
                 for (let i = 0; i < phrasalVerb.length; i++) {
                     if (phrasalVerb[i] === ' ') {
                         const space = document.createElement('span');
@@ -474,13 +506,11 @@
                         inputContainer.appendChild(input);
                     }
                 }
-                
                 const part2 = document.createElement('span');
                 part2.textContent = parts[1] || '';
                 
                 currentSentenceElements = [part1, inputContainer, part2];
                 currentSentenceElements.forEach(el => exampleSentenceEl.appendChild(el));
-                
                 setupInputEvents();
                 setTimeout(() => {
                     const firstInput = inputContainer.querySelector('input');
@@ -505,7 +535,6 @@
                     }
                     if(next) next.focus();
                 }
-
                 const allInputs = Array.from(exampleSentenceEl.querySelectorAll('.char-input'));
                 const isComplete = allInputs.every(i => i.value);
                 if (isComplete) {
@@ -516,14 +545,14 @@
             function handleKeyDown(e) {
                 const input = e.target;
                 if (e.key === 'Backspace' && !input.value) {
-                     let prev = input.previousElementSibling;
+                    let prev = input.previousElementSibling;
                     while(prev && prev.tagName !== 'INPUT'){
                         prev = prev.previousElementSibling;
                     }
                     if(prev) prev.focus();
                 } else if (e.key === 'ArrowLeft') {
                     let prev = input.previousElementSibling;
-                    while(prev && prev.tagName !== 'INPUT'){
+                     while(prev && prev.tagName !== 'INPUT'){
                         prev = prev.previousElementSibling;
                     }
                     if(prev) prev.focus();
@@ -534,7 +563,7 @@
                     }
                     if(next) next.focus();
                 } else if (e.key === 'Enter') {
-                     checkAnswer();
+                    checkAnswer();
                 }
             }
 
@@ -552,37 +581,33 @@
 
                 if (typedWord === currentCorrectAnswer.replace(/ /g, '')) {
                     if (isSentenceTranslated) {
-                       showOriginal();
+                        showOriginal();
                     }
-                    // sentenceTranslateBtn.disabled = true; // REMOVED
-                    
                     feedbackMessage.innerHTML = `Correto! 🎉 <span class="block text-base font-normal mt-1">${currentPhraseData.Meaning}</span>`;
                     feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-green-500';
                     score += 10;
                     scoreDisplay.textContent = `Pontos: ${score}`;
-                    
+
                     const answerText = document.createElement('span');
                     answerText.className = 'font-bold text-green-500 underline mx-2';
                     answerText.textContent = currentPhraseData['Phrasal Verb'].trim();
                     wrapper.parentNode.replaceChild(answerText, wrapper);
                     
-                    // Update currentSentenceElements so translation still works
                     const part1 = currentSentenceElements[0];
                     const part2 = currentSentenceElements[2];
                     currentSentenceElements = [part1, answerText, part2];
                     
                     sentenceSpeakerBtn.onclick = () => playAudio(currentPhraseData.Example, sentenceSpeakerBtn);
-                    
+
                     nextLevelBtn.classList.remove('hidden');
                     nextLevelBtn.focus();
                 } else {
                     feedbackMessage.textContent = 'Ops, tente novamente!';
                     feedbackMessage.className = 'min-h-[4rem] text-lg font-semibold mb-4 flex items-center justify-center flex-col text-red-500';
-                    
                     score -= 10;
-                    score = Math.max(0, score); // Prevent negative score
+                    score = Math.max(0, score);
                     scoreDisplay.textContent = `Pontos: ${score}`;
-
+                    
                     wrapper.classList.add('animate-shake');
                     setTimeout(() => {
                        wrapper.classList.remove('animate-shake');
@@ -598,45 +623,39 @@
                     }, 500);
                 }
             }
-
-            function showGameOver() {
+            async function showGameOver() {
                 mainContent.classList.add('hidden');
                 gameHeader.classList.add('hidden');
                 gameOverScreen.classList.remove('hidden');
                 finalScoreEl.textContent = score;
+                await saveScore();
             }
 
-            function restartGame() {
+            nextLevelBtn.addEventListener('click', async () => {
+                await saveScore();
+                loadLevel();
+            });
+            
+            restartBtn.addEventListener('click', () => {
+                gameOverScreen.classList.add('hidden');
                 currentLevel = 0;
                 score = 0;
                 usedExamples = [];
                 currentPhraseData = null;
-                scoreDisplay.textContent = `Pontos: 0`;
-                mainContent.classList.remove('hidden');
-                gameHeader.classList.remove('hidden');
-                gameOverScreen.classList.add('hidden');
-                loadLevel();
-            }
-            
-            nextLevelBtn.addEventListener('click', loadLevel);
-            restartBtn.addEventListener('click', restartGame);
+                currentGameDocId = null; // Reinicia o ID da sessão do jogo
+                scoreDisplay.textContent = 'Pontos: 0';
+                playerNameModal.classList.remove('hidden');
+            });
 
-            loadVocabularyFromUrl();
+            // Initial Load
+            await initializeDb();
+            if (!playerName) {
+                playerNameModal.classList.remove('hidden');
+            } else {
+                 loadVocabularyFromUrl();
+            }
         });
-
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .animate-shake {
-                animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-            }
-            @keyframes shake {
-                10%, 90% { transform: translate3d(-1px, 0, 0); }
-                20%, 80% { transform: translate3d(2px, 0, 0); }
-                30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-                40%, 60% { transform: translate3d(4px, 0, 0); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
+
